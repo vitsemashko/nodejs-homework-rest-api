@@ -4,13 +4,7 @@ const contactsOperations = require("../models/contacts");
 async function getAll(req, res, next) {
 	try {
 		const contacts = await contactsOperations.listContacts();
-		res.json({
-			status: "success",
-			code: 200,
-			data: {
-				result: contacts,
-			},
-		});
+		res.status(200).json(contacts);
 	} catch (error) {
 		next(error);
 	}
@@ -25,13 +19,7 @@ async function getById(req, res, next) {
 			error.status = 404;
 			throw error;
 		}
-		res.json({
-			status: "success",
-			code: 200,
-			data: {
-				result,
-			},
-		});
+		res.status(200).json(result);
 	} catch (error) {
 		next(error);
 	}
@@ -44,13 +32,7 @@ async function post(req, res, next) {
 			throw error;
 		}
 		const result = await contactsOperations.addContact(req.body);
-		res.status(201).json({
-			status: "success",
-			code: 201,
-			data: {
-				result,
-			},
-		});
+		res.status(201).json(result);
 	} catch (error) {
 		next(error);
 	}
@@ -64,15 +46,10 @@ async function deleteById(req, res, next) {
 			error.status = 404;
 			throw error;
 		}
-		const deleted = await contactsOperations.removeContact(contactId);
+		await contactsOperations.removeContact(contactId);
 
 		res.json({
-			status: "success",
-			code: 200,
 			message: "Contact deleted",
-			data: {
-				deleted,
-			},
 		});
 	} catch (error) {
 		next(error);
@@ -80,20 +57,20 @@ async function deleteById(req, res, next) {
 }
 async function putById(req, res, next) {
 	try {
+		if (!Object.keys(req.body).length) {
+			Error.status = 400;
+			Error.message = "missing fields";
+			throw Error;
+		}
 		const { error } = contactsSchema.validate(req.body);
 		if (error) {
 			error.status = 400;
 			throw error;
 		}
 		const { contactId } = req.params;
+
 		const result = await contactsOperations.updateContact(contactId, req.body);
-		res.json({
-			status: "success",
-			code: 200,
-			data: {
-				result,
-			},
-		});
+		res.status(200).json(result);
 	} catch (error) {
 		next(error);
 	}
