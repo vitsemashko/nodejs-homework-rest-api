@@ -1,14 +1,14 @@
-const contactsOperations = require("../models/contacts");
+const Contact = require("../models/contact");
 const {
 	checkRequiredFields,
-	contactsSchemaValidation,
+	contactsSchemaJoiValidation,
 } = require("../middlewares");
 async function post(req, res, next) {
 	try {
 		const { body } = req;
 		checkRequiredFields(body);
-		contactsSchemaValidation(body);
-		const result = await contactsOperations.addContact(body);
+		contactsSchemaJoiValidation(body);
+		const result = await Contact.create(body);
 		res.status(201).json(result);
 	} catch (error) {
 		next(error);
