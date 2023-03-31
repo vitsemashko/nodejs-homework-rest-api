@@ -1,6 +1,6 @@
-const Contact = require("../models/contact");
+const Contact = require("../../models/contact");
 
-const { isValidId } = require("../middlewares");
+const { isValidId } = require("../../middlewares");
 
 async function deleteById(req, res, next) {
 	try {

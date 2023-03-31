@@ -1,9 +1,9 @@
-const Contact = require("../models/contact");
+const Contact = require("../../models/contact");
 
 const {
 	isValidId,
 	updateFavoriteSchemaJoiValidation,
-} = require("../middlewares");
+} = require("../../middlewares");
 
 async function patchContactStatus(req, res, next) {
 	try {

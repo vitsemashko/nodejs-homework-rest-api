@@ -1,9 +1,9 @@
-const Contact = require("../models/contact");
+const Contact = require("../../models/contact");
 const {
 	contactsSchemaJoiValidation,
 	checkFields,
 	isValidId,
-} = require("../middlewares");
+} = require("../../middlewares");
 
 async function putById(req, res, next) {
 	try {
