@@ -1,9 +1,15 @@
-const contactsOperations = require("../models/contacts");
+const Contact = require("../models/contact");
+
+const { isValidId } = require("../middlewares");
 
 async function getById(req, res, next) {
 	try {
 		const { contactId } = req.params;
-		const result = await contactsOperations.getContactById(contactId);
+		isValidId(contactId);
+		const result = await Contact.findOne(
+			{ _id: contactId },
+			"-crearedAt -updatedAt"
+		);
 		if (!result) {
 			const error = new Error();
 			error.message = "Not found";

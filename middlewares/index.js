@@ -1,11 +1,15 @@
 const checkRequiredFields = require("./checkRequiredFields");
-const isIdValid = require("./isIdValid");
-const contactsSchemaValidation = require("./contactsSchemaValidation");
+
+const contactsSchemaJoiValidation = require("./contactsSchemaJoiValidation");
 const checkFields = require("./checkFields");
+const isValidId = require("./isValidId");
+const updateFavoriteSchemaJoiValidation = require("./updateFavoriteSchemaJoiValidation");
 
 module.exports = {
 	checkRequiredFields,
-	isIdValid,
-	contactsSchemaValidation,
+
+	contactsSchemaJoiValidation,
 	checkFields,
+	isValidId,
+	updateFavoriteSchemaJoiValidation,
 };
