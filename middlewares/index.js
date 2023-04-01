@@ -5,6 +5,7 @@ const checkFields = require("./checkFields");
 const checkRequiredFieldsAuth = require("./checkRequiredFieldsAuth");
 const isValidId = require("./isValidId");
 const updateFavoriteSchemaJoiValidation = require("./updateFavoriteSchemaJoiValidation");
+const upload = require("./upload");
 
 module.exports = {
 	auth,
@@ -14,4 +15,5 @@ module.exports = {
 	checkFields,
 	isValidId,
 	updateFavoriteSchemaJoiValidation,
+	upload,
 };

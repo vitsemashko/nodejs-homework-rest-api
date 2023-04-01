@@ -1,4 +1,5 @@
 const { Conflict } = require("http-errors");
+const gravatar = require("gravatar");
 const { userRegisterSchemaJoi } = require("../../schemas/usersSchema");
 
 const { checkFields, checkRequiredFieldsAuth } = require("../../middlewares");
@@ -18,12 +19,13 @@ async function register(req, res, next) {
 		if (user) {
 			throw new Conflict(`Email in use`);
 		}
-		const newUser = new User({ email, password });
+		const avatarURL = gravatar.url(email);
+		const newUser = new User({ email, password, avatarURL });
 		await newUser.setPassword(password);
 		await newUser.save();
 		res
 			.status(201)
-			.json({ user: { email, subscription: newUser.subscription } });
+			.json({ user: { email, subscription: newUser.subscription, avatarURL } });
 	} catch (error) {
 		next(error);
 	}
